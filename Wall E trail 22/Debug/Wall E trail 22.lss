@@ -1,0 +1,477 @@
+
+Wall E trail 22.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000028a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000002fe  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000008  00800060  00800060  000002fe  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000002fe  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000330  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  0000036c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000220  00000000  00000000  00000394  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000139  00000000  00000000  000005b4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000019a  00000000  00000000  000006ed  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000058  00000000  00000000  00000888  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001cc  00000000  00000000  000008e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000148  00000000  00000000  00000aac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000018  00000000  00000000  00000bf4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 60 00 	jmp	0xc0	; 0xc0 <__vector_16>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a8 36       	cpi	r26, 0x68	; 104
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 3e 00 	call	0x7c	; 0x7c <main>
+  74:	0c 94 43 01 	jmp	0x286	; 0x286 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <main>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7c:	2f e3       	ldi	r18, 0x3F	; 63
+  7e:	8d e0       	ldi	r24, 0x0D	; 13
+  80:	93 e0       	ldi	r25, 0x03	; 3
+  82:	21 50       	subi	r18, 0x01	; 1
+  84:	80 40       	sbci	r24, 0x00	; 0
+  86:	90 40       	sbci	r25, 0x00	; 0
+  88:	e1 f7       	brne	.-8      	; 0x82 <main+0x6>
+  8a:	00 c0       	rjmp	.+0      	; 0x8c <main+0x10>
+  8c:	00 00       	nop
+int main(void)
+{
+	_delay_ms(1000);
+	
+	// for ADC
+	ADCSRA |= 1<<ADPS2;  // enabling pre-scalar
+  8e:	32 9a       	sbi	0x06, 2	; 6
+	ADCSRA |= 1<<ADIE;   // enabling interupt
+  90:	33 9a       	sbi	0x06, 3	; 6
+	ADMUX |= 1<<ADLAR;   // enabling 8-bit
+  92:	3d 9a       	sbi	0x07, 5	; 7
+	ADMUX |= 1<<REFS0;   // max reference voltage
+  94:	3e 9a       	sbi	0x07, 6	; 7
+	ADCSRA |= 1<<ADEN;   // turning on ADC feature
+  96:	37 9a       	sbi	0x06, 7	; 6
+	sei();
+  98:	78 94       	sei
+	ADCSRA |= 1<<ADSC;   // ADC Start conversion
+  9a:	36 9a       	sbi	0x06, 6	; 6
+	
+	// for PWM
+	DDRD |= 0xFF;
+  9c:	81 b3       	in	r24, 0x11	; 17
+  9e:	8f ef       	ldi	r24, 0xFF	; 255
+  a0:	81 bb       	out	0x11, r24	; 17
+	DDRB |= 0xFF;
+  a2:	97 b3       	in	r25, 0x17	; 23
+  a4:	87 bb       	out	0x17, r24	; 23
+	PORTB |= 0x00;
+  a6:	88 b3       	in	r24, 0x18	; 24
+  a8:	88 bb       	out	0x18, r24	; 24
+	TCCR1A |= 1<<WGM11 | 1<<COM1A1 | 1<<COM1A0 | 1<<COM1B0 | 1<<COM1B1;
+  aa:	8f b5       	in	r24, 0x2f	; 47
+  ac:	82 6f       	ori	r24, 0xF2	; 242
+  ae:	8f bd       	out	0x2f, r24	; 47
+	TCCR1B |= 1<<WGM13 | 1<<WGM12 | 1<<CS10;
+  b0:	8e b5       	in	r24, 0x2e	; 46
+  b2:	89 61       	ori	r24, 0x19	; 25
+  b4:	8e bd       	out	0x2e, r24	; 46
+	ICR1 = 19999;
+  b6:	8f e1       	ldi	r24, 0x1F	; 31
+  b8:	9e e4       	ldi	r25, 0x4E	; 78
+  ba:	97 bd       	out	0x27, r25	; 39
+  bc:	86 bd       	out	0x26, r24	; 38
+#include <avr/interrupt.h>
+#include <util/delay.h>
+volatile unsigned int input=0,f,l,r;
+
+
+int main(void)
+  be:	ff cf       	rjmp	.-2      	; 0xbe <main+0x42>
+
+000000c0 <__vector_16>:
+		
+	}
+}
+
+ISR(ADC_vect)
+{
+  c0:	1f 92       	push	r1
+  c2:	0f 92       	push	r0
+  c4:	0f b6       	in	r0, 0x3f	; 63
+  c6:	0f 92       	push	r0
+  c8:	11 24       	eor	r1, r1
+  ca:	2f 93       	push	r18
+  cc:	8f 93       	push	r24
+  ce:	9f 93       	push	r25
+  d0:	ef 93       	push	r30
+  d2:	ff 93       	push	r31
+	input = ADCH ;
+  d4:	85 b1       	in	r24, 0x05	; 5
+  d6:	90 e0       	ldi	r25, 0x00	; 0
+  d8:	90 93 67 00 	sts	0x0067, r25
+  dc:	80 93 66 00 	sts	0x0066, r24
+	
+	switch(ADMUX)
+  e0:	87 b1       	in	r24, 0x07	; 7
+  e2:	81 36       	cpi	r24, 0x61	; 97
+  e4:	09 f4       	brne	.+2      	; 0xe8 <__vector_16+0x28>
+  e6:	50 c0       	rjmp	.+160    	; 0x188 <__vector_16+0xc8>
+  e8:	18 f4       	brcc	.+6      	; 0xf0 <__vector_16+0x30>
+  ea:	80 36       	cpi	r24, 0x60	; 96
+  ec:	41 f0       	breq	.+16     	; 0xfe <__vector_16+0x3e>
+  ee:	b4 c0       	rjmp	.+360    	; 0x258 <__vector_16+0x198>
+  f0:	82 36       	cpi	r24, 0x62	; 98
+  f2:	09 f4       	brne	.+2      	; 0xf6 <__vector_16+0x36>
+  f4:	91 c0       	rjmp	.+290    	; 0x218 <__vector_16+0x158>
+  f6:	83 36       	cpi	r24, 0x63	; 99
+  f8:	09 f4       	brne	.+2      	; 0xfc <__vector_16+0x3c>
+  fa:	ac c0       	rjmp	.+344    	; 0x254 <__vector_16+0x194>
+  fc:	ad c0       	rjmp	.+346    	; 0x258 <__vector_16+0x198>
+	{
+		
+		// Front Sensor - First Case
+		case 0x60:
+		f = input;
+  fe:	80 91 66 00 	lds	r24, 0x0066
+ 102:	90 91 67 00 	lds	r25, 0x0067
+ 106:	90 93 65 00 	sts	0x0065, r25
+ 10a:	80 93 64 00 	sts	0x0064, r24
+		// Code - 1	
+		if(f>160)                          // Go Straight
+ 10e:	80 91 64 00 	lds	r24, 0x0064
+ 112:	90 91 65 00 	lds	r25, 0x0065
+ 116:	81 3a       	cpi	r24, 0xA1	; 161
+ 118:	91 05       	cpc	r25, r1
+ 11a:	50 f0       	brcs	.+20     	; 0x130 <__vector_16+0x70>
+		{
+			OCR1A = 14000;
+ 11c:	80 eb       	ldi	r24, 0xB0	; 176
+ 11e:	96 e3       	ldi	r25, 0x36	; 54
+ 120:	9b bd       	out	0x2b, r25	; 43
+ 122:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 14000;
+ 124:	99 bd       	out	0x29, r25	; 41
+ 126:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 128:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 12a:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 12c:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 12e:	c2 98       	cbi	0x18, 2	; 24
+		}
+		if(f<=160 && f>113)              // When near wall
+ 130:	80 91 64 00 	lds	r24, 0x0064
+ 134:	90 91 65 00 	lds	r25, 0x0065
+ 138:	81 3a       	cpi	r24, 0xA1	; 161
+ 13a:	91 05       	cpc	r25, r1
+ 13c:	40 f4       	brcc	.+16     	; 0x14e <__vector_16+0x8e>
+ 13e:	80 91 64 00 	lds	r24, 0x0064
+ 142:	90 91 65 00 	lds	r25, 0x0065
+ 146:	82 37       	cpi	r24, 0x72	; 114
+ 148:	91 05       	cpc	r25, r1
+ 14a:	08 f0       	brcs	.+2      	; 0x14e <__vector_16+0x8e>
+ 14c:	87 c0       	rjmp	.+270    	; 0x25c <__vector_16+0x19c>
+			PORTB |= 1<<PINB0;
+			PORTB |= 1<<PINB3;
+			PORTB &= ~(1<<PINB1);
+			PORTB &= ~(1<<PINB2);
+		}	
+		if(f<113)                             // 90 degree Right Turn when front closed
+ 14e:	80 91 64 00 	lds	r24, 0x0064
+ 152:	90 91 65 00 	lds	r25, 0x0065
+ 156:	81 37       	cpi	r24, 0x71	; 113
+ 158:	91 05       	cpc	r25, r1
+ 15a:	98 f4       	brcc	.+38     	; 0x182 <__vector_16+0xc2>
+		{
+			OCR1A = 5000;
+ 15c:	88 e8       	ldi	r24, 0x88	; 136
+ 15e:	93 e1       	ldi	r25, 0x13	; 19
+ 160:	9b bd       	out	0x2b, r25	; 43
+ 162:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 5000;
+ 164:	99 bd       	out	0x29, r25	; 41
+ 166:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB1;
+ 168:	c1 9a       	sbi	0x18, 1	; 24
+			PORTB |= 1<<PINB3;
+ 16a:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB0);
+ 16c:	c0 98       	cbi	0x18, 0	; 24
+			PORTB &= ~(1<<PINB2);
+ 16e:	c2 98       	cbi	0x18, 2	; 24
+ 170:	2f ef       	ldi	r18, 0xFF	; 255
+ 172:	89 ef       	ldi	r24, 0xF9	; 249
+ 174:	90 e0       	ldi	r25, 0x00	; 0
+ 176:	21 50       	subi	r18, 0x01	; 1
+ 178:	80 40       	sbci	r24, 0x00	; 0
+ 17a:	90 40       	sbci	r25, 0x00	; 0
+ 17c:	e1 f7       	brne	.-8      	; 0x176 <__vector_16+0xb6>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <__vector_16+0xc0>
+ 180:	00 00       	nop
+			_delay_ms(320);
+		}
+		ADMUX = 0x61;
+ 182:	81 e6       	ldi	r24, 0x61	; 97
+ 184:	87 b9       	out	0x07, r24	; 7
+		break;
+ 186:	68 c0       	rjmp	.+208    	; 0x258 <__vector_16+0x198>
+		
+		// Left Sensor - Second Case
+		case 0x61:
+		l = input;
+ 188:	80 91 66 00 	lds	r24, 0x0066
+ 18c:	90 91 67 00 	lds	r25, 0x0067
+ 190:	90 93 63 00 	sts	0x0063, r25
+ 194:	80 93 62 00 	sts	0x0062, r24
+		// Code - 2
+		if(l<91)
+ 198:	80 91 62 00 	lds	r24, 0x0062
+ 19c:	90 91 63 00 	lds	r25, 0x0063
+ 1a0:	8b 35       	cpi	r24, 0x5B	; 91
+ 1a2:	91 05       	cpc	r25, r1
+ 1a4:	60 f4       	brcc	.+24     	; 0x1be <__vector_16+0xfe>
+		{
+			OCR1A = 3000;
+ 1a6:	88 eb       	ldi	r24, 0xB8	; 184
+ 1a8:	9b e0       	ldi	r25, 0x0B	; 11
+ 1aa:	9b bd       	out	0x2b, r25	; 43
+ 1ac:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 17000;
+ 1ae:	88 e6       	ldi	r24, 0x68	; 104
+ 1b0:	92 e4       	ldi	r25, 0x42	; 66
+ 1b2:	99 bd       	out	0x29, r25	; 41
+ 1b4:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 1b6:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 1b8:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 1ba:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 1bc:	c2 98       	cbi	0x18, 2	; 24
+		}
+		if(l>160)                    // 90 degree Slow left When right is available
+ 1be:	80 91 62 00 	lds	r24, 0x0062
+ 1c2:	90 91 63 00 	lds	r25, 0x0063
+ 1c6:	81 3a       	cpi	r24, 0xA1	; 161
+ 1c8:	91 05       	cpc	r25, r1
+ 1ca:	18 f1       	brcs	.+70     	; 0x212 <__vector_16+0x152>
+		{
+			OCR1A = 17000;
+ 1cc:	88 e6       	ldi	r24, 0x68	; 104
+ 1ce:	92 e4       	ldi	r25, 0x42	; 66
+ 1d0:	9b bd       	out	0x2b, r25	; 43
+ 1d2:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 17000;
+ 1d4:	99 bd       	out	0x29, r25	; 41
+ 1d6:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 1d8:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 1da:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 1dc:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 1de:	c2 98       	cbi	0x18, 2	; 24
+ 1e0:	e7 ea       	ldi	r30, 0xA7	; 167
+ 1e2:	f1 e6       	ldi	r31, 0x61	; 97
+ 1e4:	31 97       	sbiw	r30, 0x01	; 1
+ 1e6:	f1 f7       	brne	.-4      	; 0x1e4 <__vector_16+0x124>
+ 1e8:	00 c0       	rjmp	.+0      	; 0x1ea <__vector_16+0x12a>
+ 1ea:	00 00       	nop
+			_delay_ms(100);
+			OCR1A = 17000;
+ 1ec:	9b bd       	out	0x2b, r25	; 43
+ 1ee:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 5000;
+ 1f0:	88 e8       	ldi	r24, 0x88	; 136
+ 1f2:	93 e1       	ldi	r25, 0x13	; 19
+ 1f4:	99 bd       	out	0x29, r25	; 41
+ 1f6:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 1f8:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 1fa:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 1fc:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 1fe:	c2 98       	cbi	0x18, 2	; 24
+ 200:	ff e8       	ldi	r31, 0x8F	; 143
+ 202:	2c ed       	ldi	r18, 0xDC	; 220
+ 204:	81 e0       	ldi	r24, 0x01	; 1
+ 206:	f1 50       	subi	r31, 0x01	; 1
+ 208:	20 40       	sbci	r18, 0x00	; 0
+ 20a:	80 40       	sbci	r24, 0x00	; 0
+ 20c:	e1 f7       	brne	.-8      	; 0x206 <__vector_16+0x146>
+ 20e:	00 c0       	rjmp	.+0      	; 0x210 <__vector_16+0x150>
+ 210:	00 00       	nop
+			_delay_ms(610);
+		}
+		ADMUX = 0x62;
+ 212:	82 e6       	ldi	r24, 0x62	; 98
+ 214:	87 b9       	out	0x07, r24	; 7
+		break;
+ 216:	20 c0       	rjmp	.+64     	; 0x258 <__vector_16+0x198>
+		
+		
+		// Right Sensor - Third Case
+		case 0x62:
+		r = input;
+ 218:	80 91 66 00 	lds	r24, 0x0066
+ 21c:	90 91 67 00 	lds	r25, 0x0067
+ 220:	90 93 61 00 	sts	0x0061, r25
+ 224:	80 93 60 00 	sts	0x0060, r24
+		// Code - 3
+		if(r<91)
+ 228:	80 91 60 00 	lds	r24, 0x0060
+ 22c:	90 91 61 00 	lds	r25, 0x0061
+ 230:	8b 35       	cpi	r24, 0x5B	; 91
+ 232:	91 05       	cpc	r25, r1
+ 234:	60 f4       	brcc	.+24     	; 0x24e <__vector_16+0x18e>
+		{
+			OCR1A = 17000;
+ 236:	88 e6       	ldi	r24, 0x68	; 104
+ 238:	92 e4       	ldi	r25, 0x42	; 66
+ 23a:	9b bd       	out	0x2b, r25	; 43
+ 23c:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 3000;
+ 23e:	88 eb       	ldi	r24, 0xB8	; 184
+ 240:	9b e0       	ldi	r25, 0x0B	; 11
+ 242:	99 bd       	out	0x29, r25	; 41
+ 244:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 246:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 248:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 24a:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 24c:	c2 98       	cbi	0x18, 2	; 24
+		}
+		ADMUX = 0x63;
+ 24e:	83 e6       	ldi	r24, 0x63	; 99
+ 250:	87 b9       	out	0x07, r24	; 7
+		break;
+ 252:	02 c0       	rjmp	.+4      	; 0x258 <__vector_16+0x198>
+		
+		
+		// Front Sensor - Fourth Case  (change from first place)
+		case 0x63:	
+		// Code - 4
+		ADMUX = 0x60;
+ 254:	80 e6       	ldi	r24, 0x60	; 96
+ 256:	87 b9       	out	0x07, r24	; 7
+		break;
+	}
+	
+	ADCSRA |= 1<<ADSC;
+ 258:	36 9a       	sbi	0x06, 6	; 6
+ 25a:	0b c0       	rjmp	.+22     	; 0x272 <__vector_16+0x1b2>
+			PORTB &= ~(1<<PINB1);
+			PORTB &= ~(1<<PINB2);
+		}
+		if(f<=160 && f>113)              // When near wall
+		{
+			OCR1A = 16000;
+ 25c:	80 e8       	ldi	r24, 0x80	; 128
+ 25e:	9e e3       	ldi	r25, 0x3E	; 62
+ 260:	9b bd       	out	0x2b, r25	; 43
+ 262:	8a bd       	out	0x2a, r24	; 42
+			OCR1B = 16000;
+ 264:	99 bd       	out	0x29, r25	; 41
+ 266:	88 bd       	out	0x28, r24	; 40
+			PORTB |= 1<<PINB0;
+ 268:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB |= 1<<PINB3;
+ 26a:	c3 9a       	sbi	0x18, 3	; 24
+			PORTB &= ~(1<<PINB1);
+ 26c:	c1 98       	cbi	0x18, 1	; 24
+			PORTB &= ~(1<<PINB2);
+ 26e:	c2 98       	cbi	0x18, 2	; 24
+ 270:	6e cf       	rjmp	.-292    	; 0x14e <__vector_16+0x8e>
+		break;
+	}
+	
+	ADCSRA |= 1<<ADSC;
+	
+}
+ 272:	ff 91       	pop	r31
+ 274:	ef 91       	pop	r30
+ 276:	9f 91       	pop	r25
+ 278:	8f 91       	pop	r24
+ 27a:	2f 91       	pop	r18
+ 27c:	0f 90       	pop	r0
+ 27e:	0f be       	out	0x3f, r0	; 63
+ 280:	0f 90       	pop	r0
+ 282:	1f 90       	pop	r1
+ 284:	18 95       	reti
+
+00000286 <_exit>:
+ 286:	f8 94       	cli
+
+00000288 <__stop_program>:
+ 288:	ff cf       	rjmp	.-2      	; 0x288 <__stop_program>
